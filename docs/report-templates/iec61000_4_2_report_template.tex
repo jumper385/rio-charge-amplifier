@@ -1,0 +1,194 @@
+% IEC 61000-4-2 ESD IMMUNITY TEST REPORT
+% =============================================================================
+\documentclass[a4paper,12pt]{article}
+
+% ---------- Packages ----------
+\usepackage[margin=25mm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{fancyhdr}
+
+% ---------- Header / Footer ----------
+\pagestyle{fancy}
+\fancyhf{}                                         % clear defaults
+\lhead{IEC 61000-4-2 Test Report}
+\rhead{RioTinto Charge Amplifier}
+\cfoot{\thepage}
+
+% ---------- Metadata ----------
+\title{\bfseries ESD Immunity Test Report\\[2mm]
+        (IEC 61000-4-2:2014)}
+\author{Quantum Digital Labs - Bayswater, Western Australia}
+
+% ---------- Convenient column types ----------
+\newcolumntype{L}{>{\raggedright\arraybackslash}p{0.35\linewidth}}
+\newcolumntype{R}{>{\raggedright\arraybackslash}p{0.60\linewidth}}
+
+% ----------------------------------------------------
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\newpage
+\tableofcontents
+\newpage
+
+% =============================================================================
+\section{Scope and Reference Documents}
+In accordance with EN 61326-1 Clause 7, this test report aims to verify that the Equipment Under Test (EUT) complies with the IEC 61000-4-2 (ESD Immunity) requirements. Device performance is evaluated against Criterion B, which allows for a temporary loss of function provided the system recovers within 60 seconds. Compliance is demonstrated by comparing pre-test and post-test measurements obtained with a reference charge simulator, and the similarity of the two data sets is quantified using the Wasserstein distance metric.
+
+% =============================================================================
+\section{Equipment Under Test (EUT)}
+\begin{table}[h]
+\centering
+\begin{tabular}{L R}
+      Product Name & Charge Amplifier Board \\
+      Manufacturer & RioTinto \\
+      Hardware Revision & V1.0 \\
+      Power Input & 24 V DC $\leq$ 30 mA \\
+\end{tabular}
+\end{table}
+
+% =============================================================================
+\section{Test Equipment}
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+      ID & Equipment & Function & Calibration Date & Calibration Due \\
+      \hline
+      E01 & ESD Gun & ESD Generation & YYYY-MM-DD & YYYY-MM-DD\\
+      E02 & HCP and VCP Plane & Coupling Planes & - & - \\
+      E03 & Environmental Sensor & Environmental Monitoring & YYYY-MM-DD & YYYY-MM-DD \\
+\end{tabular}
+\end{table}
+
+% =============================================================================
+\section{Climatic and Environmental Conditions}
+
+\begin{center} % keeps the table centred like your screenshot
+\begin{tabular}{|l|c|c|}
+  \hline
+  \textbf{Parameter} &
+  \textbf{Standard Range (IEC 61000-4-2)} &
+  \textbf{Measured}\\
+  \hline
+  Ambient Temperature & 15$^\circ$C - 35$^\circ$C & XX$^\circ$C\\
+  Relative Humidity   & 30 \% - 60 \%              & XX \%\\
+  Atmospheric Pressure& 86 kPa - 106 kPa           & XXX kPa\\
+  \hline
+\end{tabular}
+\end{center}
+
+% =============================================================================
+\section{Special Test Conditions and Setup}
+\begin{itemize}
+      \item{Horizontal Coupling Plane: 0.5m x 0.5m place placed 0.1m from closest EUT edge}
+      \item{Vertical Coupling Plane: 0.5m x 0.5m placed 0.1m from closest EUT edge}
+\end{itemize}
+
+\subsection{Device Operating Mode}
+\begin{itemize}
+      \item{Device to be set to test mode to enable the on-board MCU to capture samples from the device}
+\end{itemize}
+
+% =============================================================================
+\section{Test Procedure (IEC 61000-4-2)}
+% nubmered list
+% pre test daq
+%       turn on device and set it into test mode
+%       connect to device via the auxiliary gpio connector to get uart comunications 
+%       initialize device into data logging mode to begin data stream in 10 seconds
+%       disconnect from the device and leave running for 1.5 minutes. 
+%       connect back and extract the last 1 minute of data (0.4 min to 1.4 min)
+
+% apply the test
+%       continue measuring data from the eut and apply esd pulses as required. 
+%       after each application of ESD pulses, wait 2 minutes
+%       connect back to the device and retreive the last 1 minute of data
+
+% confirm wasserstein distance
+%       measure the wassersteing distance between the pre and post test samples.
+%       pass if wasserstein distance is 0.2
+
+\begin{enumerate}
+      \item{Pre-test DAQ Setup:}
+            \begin{itemize}
+                  \item{Turn on device and set it into test mode.}
+                  \item{Connect to device via the auxiliary GPIO connector to enable UART communications.}
+                  \item{Initialize device into data logging mode to begin data stream in 10 seconds.}
+                  \item{Disconnect from the device and leave running for 1.5 minutes.}
+                  \item{Reconnect and extract the last 1 minute of data (0.4 min to 1.4 min).}
+            \end{itemize}
+
+      \item{ESD Application:}
+            \begin{itemize}
+                  \item{Continue measuring data from the EUT and apply ESD pulses as required.}
+                  \item{After each application of ESD pulses, wait 2 minutes.}
+                  \item{Reconnect to the device and retrieve the last 1 minute of data.}
+            \end{itemize}
+
+      \item{Wasserstein Distance Confirmation:}
+            \begin{itemize}
+                  \item{Measure the Wasserstein distance between the pre-test and post-test samples.}
+            \end{itemize}
+\end{enumerate}
+
+Apply tests to the following locations:
+\begin{center}
+      \begin{tabular}{|l|L|}
+            \hline
+            Location & Description \\
+            \hline
+            Top and Bottom & 0.5m x 0.5m plane placed 0.1m from closest EUT edge \\
+            Vertical Coupling Plane & 0.5m x 0.5m plane placed 0.1m from closest EUT edge \\
+            Direct Contact & Direct contact with ESD gun at various points on the EUT \\
+            \hline
+      \end{tabular}
+\end{center}
+
+| location | description |
+
+% =============================================================================
+\section{Performance Criterion and Decision Rules}
+The performance criterion for this test is Criterion B, which allows for temporary loss of function provided the system recovers within 60 seconds. Compliance is determined by comparing pre-test and post-test measurements obtained with a reference charge simulator. The similarity of the two data sets is quantified using the Wasserstein distance metric, with a threshold of 0.2 indicating compliance.
+
+% =============================================================================
+\section{Results}
+% | test id | application point | wasserstein distance | pass/fail |
+\begin{table}[h]
+      \centering
+      \begin{tabular}{|l|l|l|l|}
+            \hline
+            Test ID & Application Point & Wasserstein Distance & Result \\
+            \hline
+            ESD-001 & Horizontal Coupling Plane & 0.15 & Pass \\
+            ESD-002 & Vertical Coupling Plane & 0.18 & Pass \\
+            ESD-003 & Direct Contact & 0.20 & Pass \\ 
+            \hline
+      \end{tabular}
+      \caption{Test Results Summary}
+      \label{tab:test_results}
+\end{table}
+
+
+% =============================================================================
+\section{Specific Conditions of Use}
+
+% =============================================================================
+\section{Photographs}
+
+% =============================================================================
+\section{Conclusions}
+\newpage
+\appendix
+\section{Baseline and Post-Test Functional Data}\label{app:baseline}
+
+\section{Oscilloscope Waveforms}\label{app:waveforms}
+
+\section{Calibration Certificates}\label{app:cal}
+
+\end{document}
+

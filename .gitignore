@@ -5,6 +5,7 @@
 # Format documentation: http://kicad-pcb.org/help/file-formats/
 
 # Temporary files
+.vscode/
 .DS_Store
 *.000
 *.bak
