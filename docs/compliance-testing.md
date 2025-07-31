@@ -75,11 +75,18 @@ Device may malfunction **during** exposure but must recover automatically; postâ
 
 #### Criteria A Measurements
 
-To measure the performance of the EUT to ensure proper function throughout the test, ensure measurements prior to test application are recorded for a 1 minute period and the data recording system (SD Card or otherwise) is being written to. After the 1 minute period prior to test start is complete, connect the computer to the EUT and extract the samples from the device. This should provide both, the means and standard deviations of the samples. Build out a histogram of the plots during test. Once complete, remove the computer and the test may be applied to the EUT. Apply for a 1 minute period OR as specified by the test regime. After the test is complete, connect the computer to extract the samples from the EUT. The samples should then be compared to the pre-test samples.
+To perform the pre- and post-test functional checks:
 
-There is an expectation that multiple peaks in the histogram exist. Each sampled distribution should be compared to the pre-test samples using a statistical test. The following tests are recommended. Extract the samples from the EUT and apply the wassersteing distance to compare the pre-test samples and the post test samples. If the wasserstein distance is less than 0.1, then the samples are considered to be similar. If the distance is greater than 0.1, then the samples are considered to be different.
+1. Record at least 1 minute of baseline data from the EUT (e.g., to SD card or equivalent).
+2. Connect to the EUT (UART, USB, etc.) and download the recorded samples.
+3. Calculate the mean and standard deviation, and generate a histogram of the baseline distribution.
+4. Disconnect the host, apply the test as specified by the test procedure then reconnect and download the post-test samples.
+5. Compare the pre- and post-test distributions by computing the Wasserstein distance:
 
-TODO: confirm that 0.1 is a good asserstein distance value
+- If distance < 0.1, distributions are equivalent.
+- If distance > 0.1, a significant change is detected.
+
+> TODO: confirm that 0.1 is a good Wasserstein distance value
 
 #### Criteria B Measurements
 
